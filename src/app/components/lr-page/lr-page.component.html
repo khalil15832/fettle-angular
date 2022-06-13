@@ -1,0 +1,18 @@
+<div *ngIf="user">
+  <h2>You're already logged in.</h2>
+  <button (click)="logout()">Log out and log back in as a different user.</button>
+</div>
+
+<div class="login" *ngIf="!user">
+  <h2>LOGIN</h2>
+  <input class="login-username" type="text" name="username" placeholder="Username">
+  <input class="login-password" type="password" name="password" placeholder="Password">
+  <button type="submit" (click)="login()">Login</button>
+</div>
+
+<div class="register" *ngIf="!user">
+  <h2>REGISTER</h2>
+  <input class="register-username" type="text" name="username" placeholder="Username">
+  <input class="register-password" type="password" name="password" placeholder="Password">
+  <button type="submit" (click)="register()">Register</button>
+</div>
