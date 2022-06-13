@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-interface User {
+export interface User {
+  id: number;
   username: string;
   d_list: number[];
 }
 
 interface loginResponse {
+  id?: number;
   success: boolean;
-  username: string;
-  d_list: number[];
+  user?: string;
+  d_list?: number[];
+  message?: string;
 }
 
 @Injectable({
@@ -19,21 +22,35 @@ interface loginResponse {
 export class UserService {
   constructor(private httpClient: HttpClient, private router: Router) {}
 
-  userApiUrl = 'localhost:5000/user/';
+  userApiUrl = 'http://localhost:5000/user/';
   user!: User | null;
 
   login(username: string, password: string): void {
+    console.log(username, password);
     this.httpClient
-      .post<loginResponse>(this.userApiUrl + 'login', { username, password })
-      .subscribe((response: loginResponse) => {
-        if (response['success']) {
-          this.user = {
-            username: response['username'],
-            d_list: response['d_list'],
-          };
+      .post<loginResponse>(this.userApiUrl + 'login', {
+        username: username,
+        password: password,
+      })
+      .subscribe(
+        (response: loginResponse) => {
+          console.log(response);
+          if (response['success']) {
+            if (response['user'] && response['d_list'] && response['id']) {
+              this.user = {
+                id: response['id'],
+                username: response['user'],
+                d_list: response['d_list'],
+              };
+            }
+            window.sessionStorage.setItem('token', (this.user!.id).toString());
+          }
+          // this.router.navigate(['/']);
+        },
+        (error) => {
+          console.log(error);
         }
-        this.router.navigate(['/']);
-      });
+      );
   }
 
   register(username: string, password: string): void {
@@ -44,17 +61,43 @@ export class UserService {
       })
       .subscribe((response: loginResponse) => {
         if (response['success']) {
-          this.user = {
-            username: response['username'],
-            d_list: response['d_list'],
-          };
+          if (response['user'] && response['d_list'] && response['id']) {
+            this.user = {
+              id: response['id'],
+              username: response['user'],
+              d_list: response['d_list'],
+            };
+          }
+          window.sessionStorage.setItem('token', (this.user!.id).toString());
+        } else {
+          window.alert(response['message']);
         }
-        this.router.navigate(['/']);
+        // this.router.navigate(['/']);
       });
   }
 
   logout(): void {
     this.user = null;
     this.router.navigate(['/']);
+    window.sessionStorage.removeItem('token');
+  }
+
+  authThruToken(token: number): void {
+    this.httpClient
+      .post<loginResponse>(this.userApiUrl + 'tokenauth', {
+        token,
+      })
+      .subscribe((response: loginResponse) => {
+        if (response['success']) {
+          if (response['user'] && response['d_list'] && response['id']) {
+            this.user = {
+              id: response['id'],
+              username: response['user'],
+              d_list: response['d_list'],
+            };
+          } 
+        }
+        // this.router.navigate(['/']);
+      });
   }
 }
