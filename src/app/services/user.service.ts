@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 export interface User {
-  id: number;
+  token: string;
   username: string;
   d_list: number[];
 }
 
 interface loginResponse {
-  id?: number;
+  token?: string;
   success: boolean;
   user?: string;
   d_list?: number[];
@@ -36,14 +36,14 @@ export class UserService {
         (response: loginResponse) => {
           console.log(response);
           if (response['success']) {
-            if (response['user'] && response['d_list'] && response['id']) {
+            if (response['user'] && response['d_list'] && response['token']) {
               this.user = {
-                id: response['id'],
+                token: response['token'],
                 username: response['user'],
                 d_list: response['d_list'],
               };
             }
-            window.sessionStorage.setItem('token', (this.user!.id).toString());
+            window.sessionStorage.setItem('token', this.user!.token);
           }
           // this.router.navigate(['/']);
         },
@@ -61,14 +61,14 @@ export class UserService {
       })
       .subscribe((response: loginResponse) => {
         if (response['success']) {
-          if (response['user'] && response['d_list'] && response['id']) {
+          if (response['user'] && response['d_list'] && response['token']) {
             this.user = {
-              id: response['id'],
+              token: response['token'],
               username: response['user'],
               d_list: response['d_list'],
             };
           }
-          window.sessionStorage.setItem('token', (this.user!.id).toString());
+          window.sessionStorage.setItem('token', (this.user!.token));
         } else {
           window.alert(response['message']);
         }
@@ -82,16 +82,15 @@ export class UserService {
     window.sessionStorage.removeItem('token');
   }
 
-  authThruToken(token: number): void {
+  authThruToken(token: string): void {
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
     this.httpClient
-      .post<loginResponse>(this.userApiUrl + 'tokenauth', {
-        token,
-      })
+      .post<loginResponse>(this.userApiUrl + 'tokenauth', {}, { headers })
       .subscribe((response: loginResponse) => {
         if (response['success']) {
-          if (response['user'] && response['d_list'] && response['id']) {
+          if (response['user'] && response['d_list'] && response['token']) {
             this.user = {
-              id: response['id'],
+              token: response['token'],
               username: response['user'],
               d_list: response['d_list'],
             };

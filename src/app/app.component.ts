@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     let token = window.sessionStorage.getItem('token');
     if (token) {
-      this.userService.authThruToken(parseInt(token));
+      this.userService.authThruToken(token);
     }
   }
 }
