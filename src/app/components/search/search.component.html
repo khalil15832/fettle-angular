@@ -1,0 +1,17 @@
+<form>
+  <input
+    type="search"
+    placeholder="Enter a search keyword"
+    name="search"
+    [(ngModel)]="query"
+    (ngModelChange)="search()"
+  />
+</form>
+<div *ngIf="filteredList.length > 0">
+  <div *ngFor="let disease of filteredList">
+    <a [routerLink]="['/disease', disease.cleaned_disease.split(' ').join('_')]" routerLinkActive="router-link-active" >
+      {{ disease.disease }}
+    </a>
+  </div>
+  
+</div>

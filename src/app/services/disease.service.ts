@@ -34,6 +34,21 @@ export class DiseaseService {
     if (this.cleanedDiseaseList) {
       return of(this.cleanedDiseaseList);
     }
+    this.fetchList().subscribe((list) => {
+      this.cleanedDiseaseList = list;
+    });
     return this.fetchList();
+  }
+
+  getDiseaseDetails(label: string | undefined): DiseaseCleaned | undefined {
+    if (this.cleanedDiseaseList) {
+      return this.cleanedDiseaseList.filter((disease: DiseaseCleaned) => {
+        return disease.cleaned_disease.split(' ').join('_') === label;
+      })[0];
+    }
+    this.getDiseaseList().subscribe(() => {
+      return this.getDiseaseDetails(label);
+    })
+    return undefined;
   }
 }
