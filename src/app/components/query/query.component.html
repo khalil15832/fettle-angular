@@ -1,1 +1,20 @@
-<p>query works!</p>
+<form>
+  <input
+    type="search"
+    placeholder="Enter symptoms, seperated by commas"
+    name="search"
+    [(ngModel)]="query"
+  />
+  <button (click)="search()">Search</button>
+</form>
+
+<div *ngIf="queriedList">
+  <div *ngFor="let queryItem of queriedList">
+    <a
+      [routerLink]="['/disease', queryItem.cleaned_disease.split(' ').join('_')]"
+      routerLinkActive="router-link-active"
+    >
+      {{ queryItem.disease }} {{ queryItem.simScore }}
+    </a>
+  </div>
+</div>

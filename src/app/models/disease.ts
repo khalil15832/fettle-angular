@@ -19,3 +19,10 @@ export interface DiseaseCleaned {
   subtitle: string | null;
   symptom_possibility: string | null;
 }
+
+export interface QueryItem {
+  disease: string;
+  subtitle: string | null;
+  cleaned_disease: string;
+  simScore: number;
+}
