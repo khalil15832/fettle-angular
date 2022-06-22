@@ -1,32 +1,37 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 export interface User {
   token: string;
   username: string;
-  d_list: number[];
+  d_list: string;
 }
 
 interface loginResponse {
   token?: string;
   success: boolean;
   user?: string;
-  d_list?: number[];
+  d_list?: string;
   message?: string;
+}
+
+interface saveResponse {
+  success: boolean;
+  d_list?: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  dListChangeEmitter = new EventEmitter();
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   userApiUrl = 'http://localhost:5000/user/';
   user!: User | null;
 
   login(username: string, password: string): void {
-    console.log(username, password);
     this.httpClient
       .post<loginResponse>(this.userApiUrl + 'login', {
         username: username,
@@ -34,18 +39,21 @@ export class UserService {
       })
       .subscribe(
         (response: loginResponse) => {
-          console.log(response);
           if (response['success']) {
-            if (response['user'] && response['d_list'] && response['token']) {
+            if (
+              response['user'] &&
+              response['d_list'] !== null &&
+              response['token']
+            ) {
               this.user = {
                 token: response['token'],
                 username: response['user'],
-                d_list: response['d_list'],
+                d_list: response['d_list'] || '',
               };
             }
             window.sessionStorage.setItem('token', this.user!.token);
           }
-          // this.router.navigate(['/']);
+          this.router.navigate(['/']);
         },
         (error) => {
           console.log(error);
@@ -61,18 +69,22 @@ export class UserService {
       })
       .subscribe((response: loginResponse) => {
         if (response['success']) {
-          if (response['user'] && response['d_list'] && response['token']) {
+          if (
+            response['user'] &&
+            response['d_list'] !== null &&
+            response['token']
+          ) {
             this.user = {
               token: response['token'],
               username: response['user'],
-              d_list: response['d_list'],
+              d_list: response['d_list'] || '',
             };
           }
-          window.sessionStorage.setItem('token', (this.user!.token));
+          window.sessionStorage.setItem('token', this.user!.token);
+          this.router.navigate(['/']);
         } else {
           window.alert(response['message']);
         }
-        // this.router.navigate(['/']);
       });
   }
 
@@ -88,15 +100,77 @@ export class UserService {
       .post<loginResponse>(this.userApiUrl + 'tokenauth', {}, { headers })
       .subscribe((response: loginResponse) => {
         if (response['success']) {
-          if (response['user'] && response['d_list'] && response['token']) {
+          if (
+            response['user'] &&
+            response['d_list'] !== null &&
+            response['token']
+          ) {
             this.user = {
               token: response['token'],
               username: response['user'],
-              d_list: response['d_list'],
+              d_list: response['d_list'] || '',
             };
-          } 
+          }
         }
-        // this.router.navigate(['/']);
       });
+  }
+
+  saveItemToProfile(dis: string): void {
+    let headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + this.user!.token
+    );
+    this.httpClient
+      .put<loginResponse>(
+        this.userApiUrl + 'profile/add',
+        {
+          label: dis,
+        },
+        { headers }
+      )
+      .subscribe(
+        (response: saveResponse) => {
+          if (response['success']) {
+            if (response['d_list']) {
+              this.user!.d_list = response['d_list'];
+              this.dListChangeEmitter.emit(this.user!.d_list);
+            }
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  removeItemFromProfile(dis: string): void {
+    let headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + this.user!.token
+    );
+    this.httpClient
+      .put<loginResponse>(
+        this.userApiUrl + 'profile/remove',
+        {
+          label: dis,
+        },
+        { headers }
+      )
+      .subscribe(
+        (response: saveResponse) => {
+          if (response['success']) {
+            if (
+              response['d_list'] !== null &&
+              response['d_list'] !== undefined
+            ) {
+              this.user!.d_list = response['d_list'];
+              this.dListChangeEmitter.emit(this.user!.d_list);
+            }
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 }

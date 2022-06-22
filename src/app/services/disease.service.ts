@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, map } from 'rxjs';
 import { Disease, DiseaseCleaned, QueryItem } from '../models/disease';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DiseaseService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private userService: UserService
+  ) {}
   private cleanedDiseaseList!: DiseaseCleaned[];
   diseaseListUrl = 'http://localhost:5000/data';
   queryUrl = 'http://localhost:5000/query';

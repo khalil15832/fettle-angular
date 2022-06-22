@@ -3,6 +3,7 @@ import { DiseaseCleaned } from 'src/app/models/disease';
 import { DiseaseService } from 'src/app/services/disease.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs';
+import { UserService, User } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-ditem',
@@ -12,25 +13,62 @@ import { map, tap } from 'rxjs';
 export class DitemComponent implements OnInit {
   @Input() disease!: DiseaseCleaned | undefined;
   disease_label: string | undefined;
+  saved: boolean = false;
 
   constructor(
     private diseaseService: DiseaseService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
-      map((params) => params.get('id')),
-      tap((id) => {
-        id ? (this.disease_label = id) : (this.disease_label = undefined);
-      })
-    ).subscribe(() => {
-      this.disease = this.diseaseService.getDiseaseDetails(this.disease_label);
-      console.log(this.disease)
-      if (!this.disease) {
-        this.router.navigate(['/']);
+    this.route.paramMap
+      .pipe(
+        map((params) => params.get('id')),
+        tap((id) => {
+          id ? (this.disease_label = id) : (this.disease_label = undefined);
+        })
+      )
+      .subscribe(() => {
+        this.disease = this.diseaseService.getDiseaseDetails(
+          this.disease_label
+        );
+        console.log(this.disease);
+        if (!this.disease) {
+          this.router.navigate(['/']);
+        }
+      });
+    if (
+      this.userService.user &&
+      this.disease_label &&
+      this.userService.user.d_list.includes(this.disease_label)
+    ) {
+      this.saved = true;
+    }
+    this.userService.dListChangeEmitter.subscribe((dList: Array<string>) => {
+      console.log(dList);
+      if (this.disease_label && dList.includes(this.disease_label)) {
+        this.saved = true;
+      } else {
+        this.saved = false;
       }
-    })
+    });
+  }
+
+  get user(): User | null {
+    return this.userService.user;
+  }
+
+  saveToProfile(): void {
+    if (this.disease_label) {
+      this.userService.saveItemToProfile(this.disease_label);
+    }
+  }
+
+  removeFromProfile(): void {
+    if (this.disease_label) {
+      this.userService.removeItemFromProfile(this.disease_label);
+    }
   }
 }

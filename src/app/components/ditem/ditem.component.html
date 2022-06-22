@@ -1,3 +1,6 @@
 <div *ngIf="disease">
   {{ disease.disease }}
+
+  <button (click)="saveToProfile()" *ngIf="!saved && user">add</button>
+  <button (click)="removeFromProfile()" *ngIf="saved && user">remove</button>
 </div>
