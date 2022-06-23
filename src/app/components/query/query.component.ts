@@ -17,6 +17,7 @@ export class QueryComponent implements OnInit {
   search(): void {
     if (this.query === '') {
       this.queriedList = [];
+      return;
     }
     this.diseaseService.queryDisease(this.query).subscribe((list) => {
       this.queriedList = list;

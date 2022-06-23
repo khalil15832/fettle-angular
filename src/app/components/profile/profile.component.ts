@@ -17,11 +17,29 @@ export class ProfileComponent implements OnInit {
   user!: User | null;
   d_list!: string;
   dListItems!: (DiseaseCleaned | undefined)[];
+
   ngOnInit(): void {
-    this.user = this.userService.user;
-    this.d_list = this.userService.user!.d_list;
-    this.dListItems = this.d_list.split(' ').map((label: string) => {
-      return this.diseaseService.getDiseaseDetails(label);
+    if (this.userService.user) {
+      this.user = this.userService.user;
+      this.initialize();
+      return;
+    }
+    this.userService.loginEmitter.subscribe((user: User) => {
+      this.user = user;
+      this.initialize();
     });
+  }
+
+  initialize(): void {
+    this.d_list = this.userService.user!.d_list;
+    this.diseaseService.getDiseaseList().subscribe((list) => {
+      this.dListItems = list.filter((disease) => {
+        return this.d_list.split(' ').includes(disease.cleaned_disease.split(' ').join('_'));
+      });
+    });
+  }
+
+  goToHome(): void {
+    this.router.navigate(['/']);
   }
 }

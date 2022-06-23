@@ -8,7 +8,6 @@ import { UserService, User } from 'src/app/services/user.service';
 @Component({
   selector: 'app-ditem',
   templateUrl: './ditem.component.html',
-  styleUrls: ['./ditem.component.css'],
 })
 export class DitemComponent implements OnInit {
   @Input() disease!: DiseaseCleaned | undefined;
@@ -34,7 +33,6 @@ export class DitemComponent implements OnInit {
         this.disease = this.diseaseService.getDiseaseDetails(
           this.disease_label
         );
-        console.log(this.disease);
         if (!this.disease) {
           this.router.navigate(['/']);
         }
@@ -47,7 +45,6 @@ export class DitemComponent implements OnInit {
       this.saved = true;
     }
     this.userService.dListChangeEmitter.subscribe((dList: Array<string>) => {
-      console.log(dList);
       if (this.disease_label && dList.includes(this.disease_label)) {
         this.saved = true;
       } else {

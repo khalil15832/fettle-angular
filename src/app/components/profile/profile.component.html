@@ -1,11 +1,74 @@
-<div *ngIf="user">
+<div class="top-right-home" (click)="goToHome()">
+  <p>Home</p>
+</div>
+
+<div *ngIf="user" class="username">
   <div>
     <p>{{ user.username }}</p>
   </div>
 </div>
 
-<div *ngIf="dListItems">
-  <div *ngFor="let disease of dListItems">
-    <p *ngIf="disease">{{ disease.cleaned_disease }}</p>
+<div *ngIf="dListItems" class="disease-list">
+  <div *ngFor="let disease of dListItems" class="disease-item">
+    <a
+      [routerLink]="['/disease', disease.cleaned_disease.split(' ').join('_')]"
+      routerLinkActive="router-link-active"
+      class="link"
+      *ngIf="disease"
+    >
+      <div>
+        <p class="disease-name">
+          {{ disease.disease }}
+        </p>
+        <br />
+        <p class="disease-subtitle">
+          {{ disease.subtitle }}
+        </p>
+      </div>
+    </a>
   </div>
 </div>
+
+<style>
+  .top-right-home {
+    position: absolute;
+    top: 0;
+    right: 30px;
+    padding: 10px;
+    background: none;
+    cursor: pointer;
+  }
+  .username {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 2em;
+  }
+  .disease-item {
+    border: 2px solid white;
+    text-decoration: none;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 50%;
+  }
+  .disease-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+  }
+  .disease-subtitle {
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+  }
+  .link {
+    text-decoration: none;
+  }
+  .disease-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+</style>
