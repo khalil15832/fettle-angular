@@ -1,3 +1,7 @@
+<button class="top-right-home" (click)="goToHome()">
+  <img src="../../../assets/home.svg" alt="" />
+</button>
+
 <div *ngIf="user">
   <h2>You're already logged in.</h2>
   <button (click)="logout()">Log out and log back in as a different user.</button>
@@ -16,3 +20,14 @@
   <input class="register-password" type="password" name="password" placeholder="Password">
   <button type="submit" (click)="register()">Register</button>
 </div>
+
+<style>
+  .top-right-home {
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+</style>

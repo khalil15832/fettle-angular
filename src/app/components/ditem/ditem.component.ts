@@ -68,4 +68,8 @@ export class DitemComponent implements OnInit {
       this.userService.removeItemFromProfile(this.disease_label);
     }
   }
+
+  goToHome(): void {
+    this.router.navigate(['/']);
+  }
 }
