@@ -33,6 +33,10 @@ export class UserService {
   user!: User | null;
 
   login(username: string, password: string): void {
+    if (username === '' || password === '') {
+      window.alert('Please enter valid username and password');
+      return;
+    }
     this.httpClient
       .post<loginResponse>(this.userApiUrl + 'login', {
         username: username,
@@ -53,8 +57,10 @@ export class UserService {
               };
             }
             window.sessionStorage.setItem('token', this.user!.token);
+            this.router.navigate(['/']);
+          } else {
+            window.alert(response['message']);
           }
-          this.router.navigate(['/']);
         },
         (error) => {
           console.log(error);
@@ -63,6 +69,10 @@ export class UserService {
   }
 
   register(username: string, password: string): void {
+    if (username === '' || password === '') {
+      window.alert('Please enter valid username and password');
+      return;
+    }
     this.httpClient
       .post<loginResponse>(this.userApiUrl + 'register', {
         username,
