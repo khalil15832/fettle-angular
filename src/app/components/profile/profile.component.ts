@@ -42,4 +42,8 @@ export class ProfileComponent implements OnInit {
   goToHome(): void {
     this.router.navigate(['/']);
   }
+
+  logout(): void {
+    this.userService.logout();
+  }
 }

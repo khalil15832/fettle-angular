@@ -6,6 +6,8 @@
   <div>
     <p>{{ user.username }}</p>
   </div>
+  <p>Saved Items</p>
+  <p *ngIf="dListItems.length == 0" class="empty-list-message">No saved items</p>
 </div>
 
 <div *ngIf="dListItems" class="disease-list">
@@ -26,6 +28,9 @@
         </p>
       </div>
     </a>
+  </div>
+  <div>
+    <button (click)="logout()">Log out</button>
   </div>
 </div>
 
@@ -51,11 +56,20 @@
     padding: 10px;
     width: 50%;
   }
+  .empty-list-message {
+    font-size: 0.6em;
+  }
   .disease-name {
     font-size: 1.5em;
     font-weight: bold;
     margin: 0;
     padding: 0;
+  }
+  button {
+    background-color: transparent;
+    border: 3px solid white;
+    font-size: 2em;
+    padding: 0.3em;
   }
   .disease-subtitle {
     font-size: 1em;

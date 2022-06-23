@@ -2,23 +2,47 @@
   <img src="../../../assets/home.svg" alt="" />
 </button>
 
-<div *ngIf="user">
-  <h2>You're already logged in.</h2>
-  <button (click)="logout()">Log out and log back in as a different user.</button>
-</div>
+<div class="wrapper">
+  <div *ngIf="user">
+    <h2>You're already logged in.</h2>
+    <button (click)="logout()">
+      Log out and log back in as a different user.
+    </button>
+  </div>
 
-<div class="login" *ngIf="!user">
-  <h2>LOGIN</h2>
-  <input class="login-username" type="text" name="username" placeholder="Username">
-  <input class="login-password" type="password" name="password" placeholder="Password">
-  <button type="submit" (click)="login()">Login</button>
-</div>
+  <div class="login" *ngIf="!user">
+    <h2>LOGIN</h2>
+    <input
+      class="login-username"
+      type="text"
+      name="username"
+      placeholder="Username"
+    />
+    <input
+      class="login-password"
+      type="password"
+      name="password"
+      placeholder="Password"
+    />
+    <button type="submit" (click)="login()">Login</button>
+  </div>
 
-<div class="register" *ngIf="!user">
-  <h2>REGISTER</h2>
-  <input class="register-username" type="text" name="username" placeholder="Username">
-  <input class="register-password" type="password" name="password" placeholder="Password">
-  <button type="submit" (click)="register()">Register</button>
+  <div class="register" *ngIf="!user">
+    <h2>REGISTER</h2>
+    <input
+      class="register-username"
+      type="text"
+      name="username"
+      placeholder="Username"
+    />
+    <input
+      class="register-password"
+      type="password"
+      name="password"
+      placeholder="Password"
+    />
+    <button type="submit" (click)="register()">Register</button>
+  </div>
 </div>
 
 <style>
@@ -29,5 +53,35 @@
     position: absolute;
     top: 10px;
     right: 10px;
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 2em;
+  }
+  input {
+    background-color: transparent;
+    border: 3px solid white;
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    width: 80%;
+  }
+
+  button {
+    background-color: transparent;
+    border: 3px solid white;
+    font-size: 0.8em;
+    padding: 0.3em;
+  }
+  .login {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .register {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 </style>
