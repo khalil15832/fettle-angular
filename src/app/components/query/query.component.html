@@ -1,24 +1,31 @@
 <form class="query-form">
   <input
     type="search"
-    placeholder="Enter symptoms, seperated by commas"
+    placeholder="Enter comma-separated symptoms"
     name="search"
     [(ngModel)]="query"
+    class="search-box"
   />
   <br />
   <button class="search-button" (click)="search()">Search</button>
 </form>
 
-<div *ngIf="queriedList">
-  <div *ngFor="let queryItem of queriedList">
+<div *ngIf="queriedList" class="disease-list">
+  <div *ngFor="let disease of queriedList" class="disease-item">
     <a
-      [routerLink]="[
-        '/disease',
-        queryItem.cleaned_disease.split(' ').join('_')
-      ]"
+      [routerLink]="['/disease', disease.cleaned_disease.split(' ').join('_')]"
       routerLinkActive="router-link-active"
+      class="link"
     >
-      {{ queryItem.disease }} {{ queryItem.simScore }}
+      <div>
+        <p class="disease-name">
+          {{ disease.disease }}
+        </p>
+        <br />
+        <p class="disease-subtitle">
+          {{ disease.subtitle }}
+        </p>
+      </div>
     </a>
   </div>
 </div>
@@ -33,5 +40,35 @@
     margin-top: 10px;
     background: none;
     cursor: pointer;
+  }
+  .disease-item {
+    border: 2px solid white;
+    text-decoration: none;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  .disease-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+  }
+  .disease-subtitle {
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+  }
+  .link {
+    text-decoration: none;
+  }
+  .disease-list {
+    margin-top: 20px;
+  }
+  .search-box {
+    font-size: 1.5em;
+    background-color: transparent;
+    width: 80%;
+    height: 2em;
+    border: 3px solid white;
   }
 </style>

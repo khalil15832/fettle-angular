@@ -1,0 +1,11 @@
+* {
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  padding: 1em;
+  box-sizing: border-box;
+  background: -webkit-linear-gradient(to right, #004e92, #000428);
+  background: linear-gradient(to right, #004e92, #000428);
+}

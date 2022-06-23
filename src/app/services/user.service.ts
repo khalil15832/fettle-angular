@@ -26,6 +26,7 @@ interface saveResponse {
 })
 export class UserService {
   dListChangeEmitter = new EventEmitter();
+  loginEmitter = new EventEmitter();
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   userApiUrl = 'http://localhost:5000/user/';
@@ -110,6 +111,7 @@ export class UserService {
               username: response['user'],
               d_list: response['d_list'] || '',
             };
+            this.loginEmitter.emit(this.user);
           }
         }
       });

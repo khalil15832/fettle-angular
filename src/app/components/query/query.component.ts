@@ -5,7 +5,6 @@ import { DiseaseService } from 'src/app/services/disease.service';
 @Component({
   selector: 'app-query',
   templateUrl: './query.component.html',
-  styleUrls: ['./query.component.css']
 })
 export class QueryComponent implements OnInit {
   query: string = '';
