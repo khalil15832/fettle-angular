@@ -3,10 +3,35 @@
 </button>
 
 <div *ngIf="disease">
-  {{ disease.disease }}
-
-  <button (click)="saveToProfile()" *ngIf="!saved && user">add</button>
-  <button (click)="removeFromProfile()" *ngIf="saved && user">remove</button>
+  <h1>
+    {{ disease.disease }}
+    <button (click)="saveToProfile()" *ngIf="!saved && user">
+      <img src="../../../assets/save.svg" alt="" />
+    </button>
+    <button (click)="removeFromProfile()" *ngIf="saved && user">
+      <img src="../../../assets/remove.svg" alt="" />
+    </button>
+  </h1>
+  <h2>{{ disease.subtitle }}</h2>
+  <div class="detail">
+    <div class="desc">
+      <p>{{ disease.primary_description }}</p>
+      <p>{{ disease.secondary_description }}</p>
+      <h3 class="rarity" *ngIf="disease.rarity">
+        Rarity: {{ disease.rarity }}
+      </h3>
+      <button class="lookup" (click)="lookDiseaseUp()">
+        <img src="../../../assets/search.svg" alt="" />
+        <h3>Look up</h3>
+      </button>
+    </div>
+    <div class="symptoms">
+      <h3>{{ disease.symptom_possibility }}</h3>
+      <ul>
+        <li *ngFor="let symptom of disease.raw_symptoms">{{ symptom }}</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <style>
@@ -17,5 +42,45 @@
     position: absolute;
     top: 10px;
     right: 10px;
+  }
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  h1 {
+    font-size: 4em;
+  }
+  h2 {
+    font-size: 2em;
+  }
+  h3 {
+    font-size: 1.5em;
+    margin: 0;
+  }
+  .detail {
+    display: flex;
+  }
+  .desc {
+    width: 45%;
+    font-size: 1.3em;
+    margin-right: 0;
+    padding-right: 20px;
+    border-right: 2px solid white;
+    display: flex;
+    flex-direction: column;
+  }
+  .symptoms {
+    margin-left: 0;
+    padding: 20px;
+    border-left: 2px solid white;
+    width: 45%;
+    font-size: 1.3em;
+  }
+  .rarity {
+    margin-top: 20px;
+  }
+  .lookup {
+    margin: 50px auto;
   }
 </style>

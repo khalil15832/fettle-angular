@@ -13,6 +13,7 @@ export class DitemComponent implements OnInit {
   @Input() disease!: DiseaseCleaned | undefined;
   disease_label: string | undefined;
   saved: boolean = false;
+  searchTemplate: string = 'https://www.google.com/search?q=';
 
   constructor(
     private diseaseService: DiseaseService,
@@ -71,5 +72,9 @@ export class DitemComponent implements OnInit {
 
   goToHome(): void {
     this.router.navigate(['/']);
+  }
+
+  lookDiseaseUp(): void {
+    window.open(this.searchTemplate + this.disease_label, '_blank');
   }
 }

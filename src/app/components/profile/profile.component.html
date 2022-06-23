@@ -7,7 +7,7 @@
     <p>{{ user.username }}</p>
   </div>
   <p>Saved Items</p>
-  <p *ngIf="dListItems.length == 0" class="empty-list-message">No saved items</p>
+  <p *ngIf="dListItems && dListItems.length == 0" class="empty-list-message">No saved items</p>
 </div>
 
 <div *ngIf="dListItems" class="disease-list">
@@ -30,7 +30,7 @@
     </a>
   </div>
   <div>
-    <button (click)="logout()">Log out</button>
+    <button (click)="logout()" class="logout-button">Log out</button>
   </div>
 </div>
 
@@ -71,6 +71,9 @@
     font-size: 2em;
     padding: 0.3em;
     cursor: pointer;
+  }
+  .logout-button {
+    margin-top: 40px;
   }
   .disease-subtitle {
     font-size: 1em;
