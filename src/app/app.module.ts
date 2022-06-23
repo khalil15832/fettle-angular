@@ -10,9 +10,10 @@ import { HomeComponent } from './components/home/home.component';
 import { SearchComponent } from './components/search/search.component';
 import { QueryComponent } from './components/query/query.component';
 import { DitemComponent } from './components/ditem/ditem.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
-  declarations: [AppComponent, LrPageComponent, HomeComponent, SearchComponent, QueryComponent, DitemComponent],
+  declarations: [AppComponent, LrPageComponent, HomeComponent, SearchComponent, QueryComponent, DitemComponent, ProfileComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],

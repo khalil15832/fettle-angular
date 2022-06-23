@@ -1,14 +1,41 @@
-<div class="test">
-  <app-search>
-  </app-search>
-  <app-query>
-  </app-query>
+<div class="home">
+  <div class="home-title">
+    <span>fettle</span>
+  </div>
+  <button class="top-right-icon" (click)="goToProfile()">
+    <img src="../../../assets/profile.svg" alt="" />
+  </button>
+  <div class="main-content">
+    <app-search> </app-search>
+    <app-query> </app-query>
+  </div>
 </div>
 
 <style>
-  .test {
+  .home-title {
+    font-size: 3em;
+  }
+  .home {
     display: flex;
+    flex-direction: column;
     align-items: center;
+  }
+
+  .top-right-icon {
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .main-content {
+    margin-top: 30px;
+    display: flex;
+    align-items: flex-start;
     justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
   }
 </style>

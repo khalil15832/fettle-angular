@@ -90,8 +90,8 @@ export class UserService {
 
   logout(): void {
     this.user = null;
-    this.router.navigate(['/']);
     window.sessionStorage.removeItem('token');
+    this.router.navigate(['/']);
   }
 
   authThruToken(token: string): void {
