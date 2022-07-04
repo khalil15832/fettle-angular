@@ -19,6 +19,7 @@ interface loginResponse {
 interface saveResponse {
   success: boolean;
   d_list?: string;
+  message?: string;
 }
 
 @Injectable({
@@ -147,6 +148,8 @@ export class UserService {
               this.user!.d_list = response['d_list'];
               this.dListChangeEmitter.emit(this.user!.d_list);
             }
+          } else {
+            window.alert(response['message']);
           }
         },
         (error) => {
@@ -178,6 +181,8 @@ export class UserService {
               this.user!.d_list = response['d_list'];
               this.dListChangeEmitter.emit(this.user!.d_list);
             }
+          } else {
+            window.alert(response['message']);
           }
         },
         (error) => {
