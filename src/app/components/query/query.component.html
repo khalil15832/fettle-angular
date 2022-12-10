@@ -6,8 +6,9 @@
     [(ngModel)]="query"
     class="search-box"
   />
-  <br />
-  <button class="search-button" (click)="search()">Search</button>
+  <button class="search-button" (click)="search()">
+    <img src="../../../assets/search.svg" alt="" />
+  </button>
 </form>
 
 <div *ngIf="queriedList" class="disease-list">
@@ -33,19 +34,25 @@
 <style>
   .query-form {
     display: flex;
-    flex-direction: column;
     align-items: center;
   }
   .search-button {
-    margin-top: 10px;
+    font-size: 1.5em;
+    padding: 0;
+    margin-left: 10px;
+    border: 3px solid white;
+    height: 2em;
     background: none;
     cursor: pointer;
+  }
+  .search-button img {
+    margin-top: -2px;
+    margin-left: 2px;
   }
   .disease-item {
     border: 2px solid white;
     text-decoration: none;
     margin-bottom: 30px;
-    padding: 10px;
   }
   .disease-name {
     font-size: 1.5em;
@@ -60,6 +67,8 @@
   }
   .link {
     text-decoration: none;
+    display: block;
+    padding: 10px;
   }
   .disease-list {
     margin-top: 20px;

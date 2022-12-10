@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, map } from 'rxjs';
 import { Disease, DiseaseCleaned, QueryItem } from '../models/disease';
 import { UserService } from './user.service';
+import { parse, stringify } from 'json5';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,7 @@ export class DiseaseService {
             disease: disease.disease,
             primary_description: disease.primary_description,
             rarity: disease.rarity,
-            raw_symptoms: JSON.parse(disease.raw_symptoms || '[]'),
+            raw_symptoms: parse(disease.raw_symptoms || '[]'),
             secondary_description: disease.secondary_description,
             subtitle: disease.subtitle,
             symptom_possibility: disease.symptom_possibility,
