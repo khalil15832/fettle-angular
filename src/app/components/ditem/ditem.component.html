@@ -22,7 +22,7 @@
       </h3>
       <button class="lookup" (click)="lookDiseaseUp()">
         <img src="../../../assets/search.svg" alt="" />
-        <h3>Look up</h3>
+        <h3>Look it up!</h3>
       </button>
     </div>
     <div class="symptoms">
@@ -81,6 +81,11 @@
     margin-top: 20px;
   }
   .lookup {
+    display: flex;
+    align-items: center;
     margin: 50px auto;
+  }
+  .top-right-home:hover img {
+    filter: invert(19%) sepia(50%) saturate(4131%) hue-rotate(183deg) brightness(100%) contrast(104%);
   }
 </style>

@@ -33,6 +33,30 @@
     border: 2px solid white;
     text-decoration: none;
     margin-bottom: 30px;
+    animation-name: defaultback;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+  }
+  .disease-item:hover {
+    animation-name: highlight;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes highlight {
+    from {
+      border: 2px solid white;
+    }
+    to {
+      border: 10px solid white;
+    }
+  }
+  @keyframes defaultback {
+    from {
+      border: 10px solid white;
+    }
+    to {
+      border: 2px solid white;
+    }
   }
   .search-form {
     display: flex;

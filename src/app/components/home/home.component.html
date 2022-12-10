@@ -1,6 +1,11 @@
 <div class="home">
   <div class="home-title">
-    <span>fettle</span>
+    <span class="title-character">f</span>
+    <span class="title-character">e</span>
+    <span class="title-character">t</span>
+    <span class="title-character">t</span>
+    <span class="title-character">l</span>
+    <span class="title-character">e</span>
   </div>
   <button class="top-right-icon" (click)="goToProfile()">
     <img src="../../../assets/profile.svg" alt="" />
@@ -43,5 +48,15 @@
   }
   app-query {
     width: 40%;
+  }
+  .title-character {
+    font-weight: 400;
+  }
+  .title-character:hover {
+    font-weight: 900;
+  }
+  .top-right-icon:hover img {
+    filter: invert(19%) sepia(50%) saturate(4131%) hue-rotate(183deg) brightness(100%) contrast(104%);
+
   }
 </style>
