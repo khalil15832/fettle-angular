@@ -11,6 +11,9 @@
     <button (click)="removeFromProfile()" *ngIf="saved && user">
       <img src="../../../assets/remove.svg" alt="" />
     </button>
+    <button class="lookup" (click)="lookDiseaseUp()">
+      <img src="../../../assets/search.svg" alt="" />
+    </button>
   </h1>
   <h2>{{ disease.subtitle }}</h2>
   <div class="detail">
@@ -20,10 +23,6 @@
       <h3 class="rarity" *ngIf="disease.rarity">
         Rarity: {{ disease.rarity }}
       </h3>
-      <button class="lookup" (click)="lookDiseaseUp()">
-        <img src="../../../assets/search.svg" alt="" />
-        <h3>Look it up!</h3>
-      </button>
     </div>
     <div class="symptoms">
       <h3>{{ disease.symptom_possibility }}</h3>
@@ -79,11 +78,6 @@
   }
   .rarity {
     margin-top: 20px;
-  }
-  .lookup {
-    display: flex;
-    align-items: center;
-    margin: 50px auto;
   }
   .top-right-home:hover img {
     filter: invert(19%) sepia(50%) saturate(4131%) hue-rotate(183deg) brightness(100%) contrast(104%);
