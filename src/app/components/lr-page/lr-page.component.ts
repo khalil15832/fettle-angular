@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-lr-page',
   templateUrl: './lr-page.component.html',
-  styleUrls: ['./lr-page.component.css'],
 })
 export class LrPageComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {}
