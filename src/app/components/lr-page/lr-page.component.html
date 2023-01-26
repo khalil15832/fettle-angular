@@ -10,39 +10,131 @@
     </button>
   </div>
 
-  <div class="login" *ngIf="!user">
+  <form [formGroup]="loginFormGroup" class="login" *ngIf="!user">
     <h2>LOGIN</h2>
     <input
+      formControlName="username"
       class="login-username"
       type="text"
       name="username"
       placeholder="Username"
     />
+    <ul
+      class="error-div username-errors"
+      *ngIf="
+        loginFormGroup.controls['username'].invalid &&
+        (loginFormGroup.controls['username'].touched ||
+          loginFormGroup.controls['username'].dirty)
+      "
+    >
+      <li *ngIf="loginFormGroup.controls['username'].errors?.required">
+        Username is required
+      </li>
+      <li *ngIf="loginFormGroup.controls['username'].errors?.minlength">
+        Username must be at least {{ USERNAME_MIN_LENGTH }} characters long
+      </li>
+      <li *ngIf="loginFormGroup.controls['username'].errors?.maxlength">
+        Username cannot be more than {{ USERNAME_MAX_LENGTH }} characters long
+      </li>
+      <li *ngIf="loginFormGroup.controls['username'].errors?.pattern">
+        Username can only contain alphanumeric characters and must begin with an
+        alphabet
+      </li>
+    </ul>
     <input
+      formControlName="password"
       class="login-password"
       type="password"
       name="password"
       placeholder="Password"
     />
-    <button type="submit" (click)="login()">Login</button>
-  </div>
+    <ul
+      class="error-div password-errors"
+      *ngIf="
+        loginFormGroup.controls['password'].invalid &&
+        (loginFormGroup.controls['password'].touched ||
+          loginFormGroup.controls['password'].dirty)
+      "
+    >
+      <li *ngIf="loginFormGroup.controls['password'].errors?.required">
+        Password is required
+      </li>
+      <li *ngIf="loginFormGroup.controls['password'].errors?.minlength">
+        Password must be at least {{ PASSWORD_MIN_LENGTH }} characters long
+      </li>
+      <li *ngIf="loginFormGroup.controls['password'].errors?.maxlength">
+        Password cannot be more than {{ PASSWORD_MAX_LENGTH }} characters long
+      </li>
+    </ul>
+    <button type="submit" (click)="login()" [disabled]="loginFormGroup.invalid">
+      Login
+    </button>
+  </form>
 
-  <div class="register" *ngIf="!user">
+  <form [formGroup]="registerFormGroup" class="register" *ngIf="!user">
     <h2>REGISTER</h2>
     <input
+      formControlName="username"
       class="register-username"
       type="text"
       name="username"
       placeholder="Username"
     />
+    <ul
+      class="error-div username-errors"
+      *ngIf="
+        registerFormGroup.controls['username'].invalid &&
+        (registerFormGroup.controls['username'].touched ||
+          registerFormGroup.controls['username'].dirty)
+      "
+    >
+      <li *ngIf="registerFormGroup.controls['username'].errors?.required">
+        Username is required
+      </li>
+      <li *ngIf="registerFormGroup.controls['username'].errors?.minlength">
+        Username must be at least {{ USERNAME_MIN_LENGTH }} characters long
+      </li>
+      <li *ngIf="registerFormGroup.controls['username'].errors?.maxlength">
+        Username cannot be more than {{ USERNAME_MAX_LENGTH }} characters long
+      </li>
+      <li *ngIf="registerFormGroup.controls['username'].errors?.pattern">
+        Username can only contain alphanumeric characters and must begin with an
+        alphabet
+      </li>
+    </ul>
     <input
+      formControlName="password"
       class="register-password"
       type="password"
       name="password"
       placeholder="Password"
     />
-    <button type="submit" (click)="register()">Register</button>
-  </div>
+    <ul
+      class="error-div password-errors"
+      *ngIf="
+        registerFormGroup.controls['password'].invalid &&
+        (registerFormGroup.controls['password'].touched ||
+          registerFormGroup.controls['password'].dirty)
+      "
+    >
+      <li *ngIf="registerFormGroup.controls['password'].errors?.required">
+        Password is required
+      </li>
+      <li *ngIf="registerFormGroup.controls['password'].errors?.minlength">
+        Password must be at least {{ PASSWORD_MIN_LENGTH }} characters long
+      </li>
+      <li *ngIf="registerFormGroup.controls['password'].errors?.maxlength">
+        Password cannot be more than {{ PASSWORD_MAX_LENGTH }} characters long
+      </li>
+    </ul>
+    <button
+      type="submit"
+      (click)="register()"
+      [disabled]="registerFormGroup.invalid"
+    >
+      Register
+    </button>
+  </form>
 </div>
 
 <style>
@@ -55,7 +147,8 @@
     right: 10px;
   }
   .top-right-home:hover img {
-    filter: invert(19%) sepia(50%) saturate(4131%) hue-rotate(183deg) brightness(100%) contrast(104%);
+    filter: invert(19%) sepia(50%) saturate(4131%) hue-rotate(183deg)
+      brightness(100%) contrast(104%);
   }
   .wrapper {
     display: flex;
@@ -78,12 +171,29 @@
     padding: 0.3em;
     cursor: pointer;
   }
+  .error-div {
+    width: 73%;
+    border: 3px solid red;
+    color: red;
+    font-size: 0.5em;
+    margin-bottom: 1em;
+  }
+  .error-div li {
+    width: 95%;
+    margin: 0.5em;
+  }
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
   .login {
+    width: 60%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
   .register {
+    width: 60%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
