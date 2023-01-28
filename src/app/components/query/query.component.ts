@@ -9,10 +9,9 @@ import { DiseaseService } from 'src/app/services/disease.service';
 export class QueryComponent implements OnInit {
   query: string = '';
   queriedList!: QueryItem[];
-  constructor(private diseaseService: DiseaseService) { }
+  constructor(private diseaseService: DiseaseService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   search(): void {
     if (this.query === '') {
@@ -21,6 +20,6 @@ export class QueryComponent implements OnInit {
     }
     this.diseaseService.queryDisease(this.query).subscribe((list) => {
       this.queriedList = list;
-    })
+    });
   }
 }
