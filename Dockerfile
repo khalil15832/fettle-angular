@@ -14,8 +14,8 @@ COPY . .
 # Generate build
 RUN npm run build
 
-# Copy compiled build into working directory
-COPY ./dist/fettle-frontend .
+# Move into the directory containing the build artifacts
+WORKDIR /working/dist/fettle-frontend
 
 # Install http-server
 RUN npm install -g http-server
