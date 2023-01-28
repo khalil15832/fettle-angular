@@ -38,6 +38,8 @@ describe('LrPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // both fields (username and password) in both login and register forms have the same formControl structure.
+  // It is enough to test one of them
   it('should determine when the form is valid/invalid', () => {
     component.loginFormGroup.controls.username.setValue('');
     component.loginFormGroup.controls.password.setValue('');

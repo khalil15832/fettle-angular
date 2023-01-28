@@ -27,6 +27,7 @@ describe('DitemComponent', () => {
       providers: [
         {
           provide: ActivatedRoute,
+          // mock paramMap object: simply an observable created using RxJS's of(), with a getter for the id parameter
           useValue: {
             paramMap: of({ id: 'disease_1', get: (id: string) => 'disease_1' }),
           },
