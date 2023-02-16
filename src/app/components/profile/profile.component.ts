@@ -24,17 +24,22 @@ export class ProfileComponent implements OnInit {
       this.initialize();
       return;
     }
-    this.userService.loginEmitter.subscribe((user: User) => {
-      this.user = user;
-      this.initialize();
-    });
+    if (window.sessionStorage.getItem('token')) {
+      this.userService.loginEmitter.subscribe((user: User) => {
+        this.user = user;
+        this.initialize();
+      });
+    }
+    this.router.navigate(['/login-register']);
   }
 
   initialize(): void {
     this.d_list = this.userService.user!.d_list;
     this.diseaseService.getDiseaseList().subscribe((list) => {
       this.dListItems = list.filter((disease) => {
-        return this.d_list.split(' ').includes(disease.cleaned_disease.split(' ').join('_'));
+        return this.d_list
+          .split(' ')
+          .includes(disease.cleaned_disease.split(' ').join('_'));
       });
     });
   }
