@@ -2,7 +2,7 @@
   <img src="../../../assets/home.svg" alt="" />
 </button>
 
-<div *ngIf="disease">
+<div *ngIf="disease" @fadeIn>
   <h1>
     {{ disease.disease }}
     <button (click)="saveToProfile()" *ngIf="!saved && user">

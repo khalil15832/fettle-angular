@@ -11,7 +11,7 @@
   </button>
 </form>
 
-<div *ngIf="queriedList" class="disease-list">
+<div *ngIf="queriedList" class="disease-list" @listAnimation>
   <div *ngFor="let disease of queriedList" class="disease-item">
     <a
       [routerLink]="['/disease', disease.cleaned_disease.split(' ').join('_')]"

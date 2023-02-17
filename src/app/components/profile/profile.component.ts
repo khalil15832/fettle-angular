@@ -3,10 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { UserService, User } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { DiseaseService } from '../../services/disease.service';
+import pagePopInAnimation from 'src/app/animations/pagePopInAnimation';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
+  animations: pagePopInAnimation,
 })
 export class ProfileComponent implements OnInit {
   constructor(

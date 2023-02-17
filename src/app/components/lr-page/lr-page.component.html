@@ -2,7 +2,7 @@
   <img src="../../../assets/home.svg" alt="" />
 </button>
 
-<div class="wrapper">
+<div class="wrapper" @fadeIn>
   <div *ngIf="user">
     <h2>You're already logged in.</h2>
     <button (click)="logout()">

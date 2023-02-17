@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { UserService, User } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import pagePopInAnimation from 'src/app/animations/pagePopInAnimation';
 
 @Component({
   selector: 'app-lr-page',
   templateUrl: './lr-page.component.html',
+  animations: pagePopInAnimation,
 })
 export class LrPageComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {}

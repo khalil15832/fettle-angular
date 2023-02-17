@@ -1,10 +1,12 @@
 import { DiseaseCleaned } from './../../models/disease';
 import { Component, OnInit } from '@angular/core';
 import { DiseaseService } from 'src/app/services/disease.service';
+import listAnimation from 'src/app/animations/listAnimations';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
+  animations: listAnimation,
 })
 export class SearchComponent implements OnInit {
   constructor(private diseaseService: DiseaseService) {}
@@ -18,7 +20,7 @@ export class SearchComponent implements OnInit {
       this.filteredList = list;
     });
   }
-  
+
   search(): void {
     if (this.query === '') {
       this.filteredList = this.diseaseList;

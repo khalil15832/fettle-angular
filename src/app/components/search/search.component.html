@@ -8,7 +8,7 @@
     class="search-box"
   />
 </form>
-<div *ngIf="filteredList.length > 0" class="disease-list">
+<div *ngIf="filteredList.length > 0" class="disease-list" @listAnimation>
   <div *ngFor="let disease of filteredList" class="disease-item">
     <a
       [routerLink]="['/disease', disease.cleaned_disease.split(' ').join('_')]"

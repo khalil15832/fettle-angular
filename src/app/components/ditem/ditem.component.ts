@@ -4,10 +4,11 @@ import { DiseaseService } from 'src/app/services/disease.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs';
 import { UserService, User } from 'src/app/services/user.service';
-
+import pagePopInAnimation from 'src/app/animations/pagePopInAnimation';
 @Component({
   selector: 'app-ditem',
   templateUrl: './ditem.component.html',
+  animations: pagePopInAnimation,
 })
 export class DitemComponent implements OnInit {
   @Input() disease!: DiseaseCleaned | undefined;
