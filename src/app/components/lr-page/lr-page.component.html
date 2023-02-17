@@ -170,6 +170,15 @@
     font-size: 0.8em;
     padding: 0.3em;
     cursor: pointer;
+    transition: color 0.3s, background-color 0.3s;
+  }
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .wrapper button:hover {
+    background-color: white;
+    color: #004e92;
   }
   .error-div {
     width: 73%;
@@ -181,10 +190,6 @@
   .error-div li {
     width: 95%;
     margin: 0.5em;
-  }
-  button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
   }
   .login {
     width: 60%;

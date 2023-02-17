@@ -2,7 +2,7 @@
   <img src="../../../assets/home.svg" alt="" />
 </button>
 
-<div *ngIf="user" class="username">
+<div *ngIf="user" class="username" @fadeIn>
   <div>
     <p>{{ user.username }}</p>
   </div>
@@ -10,7 +10,7 @@
   <p *ngIf="dListItems && dListItems.length == 0" class="empty-list-message">No saved items</p>
 </div>
 
-<div *ngIf="dListItems" class="disease-list">
+<div *ngIf="dListItems" class="disease-list" @fadeIn>
   <div *ngFor="let disease of dListItems" class="disease-item">
     <a
       [routerLink]="['/disease', disease.cleaned_disease.split(' ').join('_')]"
@@ -71,6 +71,11 @@
     font-size: 2em;
     padding: 0.3em;
     cursor: pointer;
+    transition: color 0.3s, background-color 0.3s;
+  }
+  .disease-list button:hover {
+    background-color: white;
+    color: #004e92;
   }
   .logout-button {
     margin-top: 40px;
